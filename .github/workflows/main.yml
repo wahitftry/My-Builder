@@ -15,7 +15,9 @@ jobs:
       uses: actions/checkout@v2
     - name: Run uup_download_windows.cmd
       run: |
-        sudo apt update && sudo apt install cabextract wimlib-imagex chntpw genisoimage \
+        sudo apt-get install cabextract wimtools chntpw genisoimage
+    - name: Build Windows
+      run: |
         sudo sh uup_download_linux.sh
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v2
