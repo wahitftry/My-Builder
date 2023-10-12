@@ -1,0 +1,23 @@
+name: Download Windows ISO
+
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types: download-windows-iso
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run uup_download_windows.cmd
+      run: |
+        uup_download_windows.cmd
+    - name: Upload ISO artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows_11.iso
+        path: *.iso
