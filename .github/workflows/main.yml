@@ -14,10 +14,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Run uup_download_windows.cmd
-      run: |
-        start.exe uup_download_windows.cmd
+      run: .\uup_download_windows.cmd
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v2
       with:
         name: windows_11.iso
-        path: /*.iso
+        path: .\*.iso
