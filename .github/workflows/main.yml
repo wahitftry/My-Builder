@@ -9,18 +9,35 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Run uup_download_windows.cmd
       run: |
-        sudo apt-get install cabextract wimtools chntpw genisoimage
-    - name: Build Windows
-      run: |
-        sudo sh uup_download_linux.sh
+        move uup_download_windows.cmd C:\
+        cd C:\
+        .\uup_download_windows.cmd
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v2
       with:
         name: windows_11.iso
-        path: ./*.iso
+        path: C:\*.iso
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+#     - name: Run uup_download_windows.cmd
+#       run: |
+#         sudo apt-get install cabextract wimtools chntpw genisoimage
+#     - name: Build Windows
+#       run: |
+#         sudo sh uup_download_linux.sh
+#     - name: Upload ISO artifact
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: windows_11.iso
+#         path: ./*.iso
