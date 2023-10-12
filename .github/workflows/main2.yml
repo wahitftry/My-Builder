@@ -1,0 +1,25 @@
+name: UUP Adguard
+
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types: download-windows-iso
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run uup_download_windows.cmd
+      run: |
+        move * C:\
+        cd C:\buildd\
+        .\*.cmd
+    - name: Upload ISO artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows_11_adguard.iso
+        path: C:\buildd\*.iso
