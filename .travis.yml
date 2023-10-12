@@ -1,0 +1,17 @@
+language: shell
+os: windows
+branches:
+  only:
+    - main
+script:
+  - .\uup_download_windows.cmd
+before_deploy:
+  - git config --local user.name "Your Name"
+  - git config --local user.email "Your Email"
+  - git tag "windows-11-$(date +'%Y%m%d%H%M%S')"
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: ./*.iso
+  skip_cleanup: true
