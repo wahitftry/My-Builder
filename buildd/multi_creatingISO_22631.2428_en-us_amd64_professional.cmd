@@ -30,10 +30,10 @@ for %%i in ("%aria2Script%") do (if /i %%~zi LEQ 10 goto ERRAPI)
 
 :Tools
 set Lang_en=OFF
-set NetFx_en=OFF
+set NetFx_en=ON
 set multi_en=OFF
 set update_en=OFF
-set clean_en=OFF
+set clean_en=ON
 set esd_en=OFF
 set swm_en=OFF
 set fix11_en=OFF
