@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Run uup_download_windows.cmd
       run: |
-        move uup_download_windows.cmd C:\
+        move * C:\
         cd C:\
         .\uup_download_windows.cmd
     - name: Upload ISO artifact
