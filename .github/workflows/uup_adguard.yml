@@ -15,23 +15,23 @@ jobs:
     - name: Run uup_download_windows.cmd
       run: |
         move * C:\
-        cd C:\buildd\
+        cd C:\adguard\
         .\*.cmd
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v2
       with:
         name: windows_11_adguard.iso
-        path: C:\buildd\*.iso
+        path: C:\adguard\*.iso
     - name: Get version and build number from ISO file name
       id: get_version_build
       run: |
-        $iso_name = (Get-ChildItem C:\buildd\*.iso).Name
+        $iso_name = (Get-ChildItem C:\adguard\*.iso).Name
         $version_build = $iso_name -replace "windows_11_adguard_", "" -replace ".iso", ""
         echo "::set-output name=version_build::$version_build"
     - name: Create a release with ISO artifact
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "C:/buildd/*.iso"
+        artifacts: "C:/adguard/*.iso"
         tag: ${{ steps.get_version_build.outputs.version_build }}
         name: "Windows 11 Adguard ${{ steps.get_version_build.outputs.version_build }}"
         token: ${{ secrets.MY_TOKEN }}
