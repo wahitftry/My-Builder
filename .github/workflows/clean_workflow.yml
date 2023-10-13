@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clean up previous workflow run
-        uses: actions/bin/cleanup@latest
+        uses: actions/bin/cleanup@v0.0.1
