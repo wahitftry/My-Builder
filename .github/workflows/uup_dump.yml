@@ -11,19 +11,19 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@latest
     - name: Run uup_download_windows.cmd
       run: |
         move * C:\
         cd C:\
         .\uup_download_windows.cmd
     - name: Upload ISO artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@latest
       with:
         name: windows_11.iso
         path: C:\*.iso
     - name: Get previous release number
-      uses: actions/github-script@v4
+      uses: actions/github-script@latest
       id: get_previous_release
       with:
         github-token: ${{ secrets.MY_TOKEN }}
@@ -37,7 +37,7 @@ jobs:
             previous_release_number: releases.length > 0 ? releases[0].tag_name.replace('v', '') : '0'
           };
     - name: Delete previous release and tags
-      uses: "marvinpinto/action-automatic-releases@latest"
+      uses: marvinpinto/action-automatic-releases@latest
       env:
         GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
       with:
@@ -46,7 +46,7 @@ jobs:
           --delete-previous-release-assets
           --delete-previous-release-tags
     - name: Release artifact
-      uses: softprops/action-gh-release@v0.1.15
+      uses: softprops/action-gh-release@latest
       env:
         GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
       with:

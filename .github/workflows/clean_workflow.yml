@@ -1,0 +1,10 @@
+name: Clean up previous workflow run
+on:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clean up previous workflow run
+        uses: actions/bin/cleanup@latest
