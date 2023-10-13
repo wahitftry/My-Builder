@@ -9,18 +9,19 @@ jobs:
   clean:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # fetch all history and tags
       - name: Delete workflow runs
         uses: dmvict/clean-workflow-runs@v1.2.1
         with:
           token: ${{ secrets.MY_TOKEN }}
           save_period: 0 # save runs for 7 days
           save_min_runs_number: 5 # save at least 5 runs
-      - name: Delete previous release and tags
-        uses: "marvinpinto/action-automatic-releases@latest"
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+      - name: Delete releases and tags
+        uses: dev-drprasad/delete-older-releases@v0.1.0
         with:
-          args: |
-            --delete-previous-release
-            --delete-previous-release-assets
-            --delete-previous-release-tags
+          keep_latest: true # keep the latest release and tag
+          delete_tags: true # delete the corresponding tags as well
+          token: ${{ secrets.GITHUB_TOKEN }}
