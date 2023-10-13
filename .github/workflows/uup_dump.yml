@@ -1,9 +1,9 @@
-name: UUP Adguard
+name: UUP Dump
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
   workflow_dispatch:
 
 jobs:
@@ -15,13 +15,13 @@ jobs:
     - name: Run uup_download_windows.cmd
       run: |
         move * C:\
-        cd C:\buildd\
-        .\*.cmd
+        cd C:\
+        .\uup_download_windows.cmd
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v2
       with:
-        name: windows_11_adguard.iso
-        path: C:\buildd\*.iso
+        name: windows_11.iso
+        path: C:\*.iso
     - name: Get previous release number
       uses: actions/github-script@v4
       id: get_previous_release
@@ -50,11 +50,29 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
       with:
-        files: C:\buildd\*.iso
+        files: C:\*.iso
         tag_name: v$((steps.get_previous_release.outputs.previous_release_number + 1))
         name: Release v$((steps.get_previous_release.outputs.previous_release_number + 1))
         body: |
-          This is release v$((steps.get_previous_release.outputs.previous_release_number + 1)) of UUP Adguard.
+          This is release v$((steps.get_previous_release.outputs.previous_release_number + 1)) of UUP Dump.
         draft: false
         prerelease: false
       if: github.ref == 'refs/heads/main'
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+#     - name: Run uup_download_windows.cmd
+#       run: |
+#         sudo apt-get install cabextract wimtools chntpw genisoimage
+#     - name: Build Windows
+#       run: |
+#         sudo sh uup_download_linux.sh
+#     - name: Upload ISO artifact
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: windows_11.iso
+#         path: ./*.iso
