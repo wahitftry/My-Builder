@@ -22,30 +22,16 @@ jobs:
       with:
         name: windows_11_adguard.iso
         path: C:\buildd\*.iso
-    - name: Get previous release number
-      uses: actions/github-script@v4
-      id: get_previous_release
+    - name: Get version and build number from ISO file name
+      id: get_version_build
+      run: |
+        $iso_name = (Get-ChildItem C:\buildd\*.iso).Name
+        $version_build = $iso_name -replace "windows_11_adguard_", "" -replace ".iso", ""
+        echo "::set-output name=version_build::$version_build"
+    - name: Create a release with ISO artifact
+      uses: ncipollo/release-action@v1
       with:
-        github-token: ${{ secrets.MY_TOKEN }}
-        script: |
-          const { data: releases } = await github.repos.listReleases({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            per_page: 1
-          });
-          return {
-            previous_release_number: releases.length > 0 ? releases[0].tag_name.replace('v', '') : '0'
-          };
-    - name: Release artifact
-      uses: softprops/action-gh-release@v0.1.15
-      env:
-        GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
-      with:
-        files: C:\buildd\*.iso
-        tag_name: v$((steps.get_previous_release.outputs.previous_release_number + 1))
-        name: Release v$((steps.get_previous_release.outputs.previous_release_number + 1))
-        body: |
-          This is release v$((steps.get_previous_release.outputs.previous_release_number + 1)) of UUP Adguard.
-        draft: false
-        prerelease: false
-      if: github.ref == 'refs/heads/main'
+        artifacts: "C:\buildd\*.iso"
+        tag: ${{ steps.get_version_build.outputs.version_build }}
+        name: "Windows 11 Adguard ${{ steps.get_version_build.outputs.version_build }}"
+        token: ${{ secrets.MY_TOKEN }}
