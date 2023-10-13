@@ -37,14 +37,15 @@ jobs:
             previous_release_number: releases.length > 0 ? releases[0].tag_name.replace('v', '') : '0'
           };
     - name: Release artifact
-      uses: actions/create-release@v1
+      uses: softprops/action-gh-release@v0.1.15
       env:
         GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
       with:
+        files: C:\*.iso
         tag_name: v$((steps.get_previous_release.outputs.previous_release_number + 1))
-        release_name: Release v$((steps.get_previous_release.outputs.previous_release_number + 1))
+        name: Release v$((steps.get_previous_release.outputs.previous_release_number + 1))
         body: |
-          This is release v$((steps.get_previous_release.outputs.previous_release_number + 1)) of UUP Adguard.
+          This is release v$((steps.get_previous_release.outputs.previous_release_number + 1)) of UUP Dump.
         draft: false
         prerelease: false
       if: github.ref == 'refs/heads/main'
