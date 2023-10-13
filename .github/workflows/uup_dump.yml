@@ -16,7 +16,7 @@ jobs:
       run: |
         move * C:\
         cd C:\
-        .\uup_download_windows.cmd
+        .\*.cmd
     - name: Upload ISO artifact
       uses: actions/upload-artifact@v2
       with:
