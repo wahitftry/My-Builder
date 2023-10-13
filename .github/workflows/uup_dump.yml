@@ -33,7 +33,7 @@ jobs:
       with:
         artifacts: "C:/*.iso"
         tag: ${{ steps.get_version_build.outputs.version_build }}
-        name: "Windows 11 Adguard ${{ steps.get_version_build.outputs.version_build }}"
+        name: "Windows 11 UUP ${{ steps.get_version_build.outputs.version_build }}"
         token: ${{ secrets.MY_TOKEN }}
 
 # jobs:
