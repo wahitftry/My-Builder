@@ -18,16 +18,14 @@
 language: shell
 os: windows
 script:
-  - move * C:\
-  - cd C:\
   - .\*.cmd
 before_deploy:
-  - iso_name=$(ls C:\*.iso)
+  - iso_name=$(ls *.iso)
   - version_build=${iso_name/windows_11_uup_/}
   - version_build=${version_build/.iso/}
 deploy:
   provider: releases
   api_key: $MY_TOKEN
-  file: C:\*.iso
+  file: \*.iso
   tag_name: $version_build
   name: "Windows 11 UUP $version_build"
