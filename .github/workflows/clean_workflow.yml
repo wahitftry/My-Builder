@@ -21,7 +21,7 @@ jobs:
           save_min_runs_number: 5 # save at least 5 runs
       - name: Delete releases and tags
         uses: dev-drprasad/delete-older-releases@v0.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
         with:
-          keep_latest: true # keep the latest release and tag
-          delete_tags: true # delete the corresponding tags as well
-          token: ${{ secrets.MY_TOKEN }}
+          keep_latest: 2
