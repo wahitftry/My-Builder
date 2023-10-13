@@ -31,7 +31,7 @@ jobs:
     - name: Create a release with ISO artifact
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "C:\*.iso"
+        artifacts: "C:/*.iso"
         tag: ${{ steps.get_version_build.outputs.version_build }}
         name: "Windows 11 Adguard ${{ steps.get_version_build.outputs.version_build }}"
         token: ${{ secrets.MY_TOKEN }}
