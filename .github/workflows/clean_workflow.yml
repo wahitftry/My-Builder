@@ -24,4 +24,4 @@ jobs:
         with:
           keep_latest: true # keep the latest release and tag
           delete_tags: true # delete the corresponding tags as well
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_TOKEN }}
