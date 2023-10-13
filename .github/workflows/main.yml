@@ -1,11 +1,10 @@
-name: Download Windows ISO
+name: UUP Dump
 
 on:
   push:
     branches:
       - main
-  repository_dispatch:
-    types: download-windows-iso
+  workflow_dispatch:
 
 jobs:
   build:
