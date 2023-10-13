@@ -36,15 +36,6 @@ jobs:
           return {
             previous_release_number: releases.length > 0 ? releases[0].tag_name.replace('v', '') : '0'
           };
-    - name: Delete previous release and tags
-      uses: "marvinpinto/action-automatic-releases@latest"
-      env:
-        GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
-      with:
-        args: |
-          --delete-previous-release
-          --delete-previous-release-assets
-          --delete-previous-release-tags
     - name: Release artifact
       uses: softprops/action-gh-release@v0.1.15
       env:

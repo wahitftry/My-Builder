@@ -1,10 +1,26 @@
-name: Clean up previous workflow run
+name: Clean workflow runs
+
 on:
-  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 0 * * *' # run every day at midnight
+  workflow_dispatch: # run manually from the Actions tab
 
 jobs:
-  cleanup:
+  clean:
     runs-on: ubuntu-latest
     steps:
-      - name: Clean up previous workflow run
-        uses: actions/bin/cleanup@v0.0.1
+      - name: Delete workflow runs
+        uses: dmvict/clean-workflow-runs@v1.2.1
+        with:
+          token: ${{ secrets.MY_TOKEN }}
+          save_period: 7 # save runs for 7 days
+          save_min_runs_number: 5 # save at least 5 runs
+      - name: Delete previous release and tags
+        uses: "marvinpinto/action-automatic-releases@latest"
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+        with:
+          args: |
+            --delete-previous-release
+            --delete-previous-release-assets
+            --delete-previous-release-tags
