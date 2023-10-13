@@ -18,7 +18,7 @@
 language: shell
 os: windows
 script:
-  - travis_wait ./uup_download_windows.cmd
+  - travis_wait 111 ./uup_download_windows.cmd
 before_deploy:
   - iso_name=$(ls /*.iso)
   - version_build=${iso_name/windows_11_uup_/}
